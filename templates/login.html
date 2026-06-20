@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="login-page">
+  <div class="login-brand">
+    <div class="logo-mark">AI</div>
+    <h1>AI Vocabulary Assistant</h1>
+    <p>Learn English with AI agents, real examples, Chinese translations and smart review.</p>
+
+    <div class="feature-list">
+      <span>✓ AI Tutor Agent</span>
+      <span>✓ Example Search Agent</span>
+      <span>✓ OpenClaw + Telegram</span>
+      <span>✓ Review & Quiz</span>
+    </div>
+  </div>
+
+  <div class="login-card">
+    <h2>Welcome back</h2>
+    <p class="muted">Sign in to continue your learning journey.</p>
+
+    <form method="post">
+      <label>Email address</label>
+      <input type="email" name="email" placeholder="you@example.com" required>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter your password" required>
+
+      <button type="submit" class="primary-button">Sign In</button>
+    </form>
+
+    <p class="auth-note">
+      New here? <a href="{{ url_for('register') }}">Create an account</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

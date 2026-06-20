@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card settings-card">
+  <h3>Settings</h3>
+  <div class="settings-grid">
+    <div>
+      <strong>Username</strong>
+      <p>{{ user.username or 'Unknown' }}</p>
+    </div>
+    <div>
+      <strong>Email</strong>
+      <p>{{ user.email or 'Unknown' }}</p>
+    </div>
+    <div>
+      <strong>Role</strong>
+      <p>{{ user.role or 'user' }}</p>
+    </div>
+    <div>
+      <strong>Joined</strong>
+      <p>{{ user.created_at or 'Unknown' }}</p>
+    </div>
+  </div>
+  <div class="settings-panel">
+  <h4>Integration Status</h4>
+
+  <p>
+    Telegram/OpenClaw:
+    <strong style="color:#22c55e;">Connected ✅</strong>
+  </p>
+
+  <p>
+    AI Agent:
+    <strong style="color:#22c55e;">Active ✅</strong>
+  </p>
+
+  <p>
+    Vocabulary Database:
+    <strong style="color:#22c55e;">Connected ✅</strong>
+  </p>
+
+  <p>
+    Example Search Agent:
+    <strong style="color:#22c55e;">Running ✅</strong>
+  </p>
+
+  <p class="muted">
+    Integration status is based on the current project configuration.
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Vocabulary Assistant</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="/static/js/main.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell fade-in">
+      {% if session.user_id %}
+      <aside class="sidebar">
+        <div class="brand">AI Vocabulary Assistant</div>
+        <nav>
+          <a href="{{ url_for('dashboard') }}" class="{% if request.path == '/dashboard' %}active{% endif %}">Dashboard</a>
+          <a href="{{ url_for('vocabulary') }}" class="{% if request.path.startswith('/vocabulary') %}active{% endif %}">Vocabulary</a>
+          <a href="{{ url_for('search_agent') }}" class="{% if request.path == '/search_agent' %}active{% endif %}">Search Agent</a>
+          <a href="{{ url_for('review') }}" class="{% if request.path == '/review' %}active{% endif %}">Review</a>
+          <a href="{{ url_for('quiz') }}" class="{% if request.path == '/quiz' %}active{% endif %}">Quiz</a>
+          <a href="{{ url_for('statistics') }}" class="{% if request.path == '/statistics' %}active{% endif %}">Statistics</a>
+          <a href="{{ url_for('sources') }}" class="{% if request.path == '/sources' %}active{% endif %}">Sources</a>
+          <a href="{{ url_for('settings') }}" class="{% if request.path == '/settings' %}active{% endif %}">Settings</a>
+          <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </nav>
+      </aside>
+      {% endif %}
+
+      <main class="content">
+    {% if session.user_id %}
+<header class="page-header">
+  <h1>{{ title if title else 'Dashboard' }}</h1>
+
+  <p class="page-subtitle">
+    AI-powered vocabulary learning platform
+  </p>
+</header>
+{% endif %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <section class="page-body">{% block content %}{% endblock %}</section>
+      </main>
+    </div>
+  </body>
+</html>

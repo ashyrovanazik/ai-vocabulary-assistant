@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <h3>Saved Sources</h3>
+  {% if sources %}
+  <table class="table-list">
+    <thead>
+      <tr><th>Source</th><th>Word</th><th>URL</th><th>Added</th></tr>
+    </thead>
+    <tbody>
+      {% for source in sources %}
+      <tr>
+        <td>{{ source.source_name or 'Unnamed' }}</td>
+        <td>{{ source.word or '—' }}</td>
+        <td>{% if source.source_url %}<a href="{{ source.source_url }}" target="_blank">Open</a>{% else %}—{% endif %}</td>
+        <td>{{ source.created_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-state">No sources are saved yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+<div class="modal" id="add-vocab-modal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3>Add Vocabulary</h3>
+      <button type="button" class="close-button" id="close-add-vocab">×</button>
+    </div>
+    <form method="post" class="vocab-form">
+      <div class="form-grid">
+        <label>
+          Word
+          <input type="text" name="word" required />
+        </label>
+        <label>
+          Phonetic
+          <input type="text" name="phonetic" />
+        </label>
+        <label>
+          Part of speech
+          <select name="part_of_speech" required>
+            <option value="">Select one</option>
+            <option value="noun">noun</option>
+            <option value="verb">verb</option>
+            <option value="adjective">adjective</option>
+            <option value="adverb">adverb</option>
+          </select>
+        </label>
+        <label>
+          Difficulty
+          <select name="difficulty" required>
+            <option value="">Select difficulty</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </label>
+        <label>
+          Source name
+          <input type="text" name="source_name" />
+        </label>
+        <label>
+          Source URL
+          <input type="url" name="source_url" />
+        </label>
+      </div>
+      <label>
+        Chinese meaning
+        <textarea name="chinese_meaning"></textarea>
+      </label>
+      <label>
+        Definition
+        <textarea name="definition" required></textarea>
+      </label>
+      <label>
+        Collocations
+        <textarea name="collocations"></textarea>
+      </label>
+      <label>
+        Synonyms
+        <textarea name="synonyms"></textarea>
+      </label>
+      <label>
+        Antonyms
+        <textarea name="antonyms"></textarea>
+      </label>
+      <label>
+        Example sentence
+        <textarea name="example_sentence"></textarea>
+      </label>
+      <label>
+        Chinese translation
+        <textarea name="chinese_translation"></textarea>
+      </label>
+      <label>
+        AI explanation
+        <textarea name="ai_explanation"></textarea>
+      </label>
+      <div class="form-actions">
+        <button class="primary-button" type="submit">Save Vocabulary</button>
+        <button type="button" class="secondary-button" id="cancel-add-vocab">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

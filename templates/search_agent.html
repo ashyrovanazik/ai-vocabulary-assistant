@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card agent-card">
+  <h3>Search Agent</h3>
+  <form id="agent-run-form" class="agent-form" onsubmit="return false;">
+    <input type="text" id="agent-command" name="command" placeholder="Enter a word to search" required />
+    <button id="run-agent-btn" class="primary-button">Run Agent</button>
+  </form>
+
+  <div id="agent-steps" class="workflow-panel" style="margin-top:18px; display:none;"></div>
+
+  <div id="agent-result" class="result-card" style="display:none; margin-top:18px;"></div>
+</div>
+
+<script>
+// Agent UI will be handled by static/js/main.js
+</script>
+
+{% endblock %}
+

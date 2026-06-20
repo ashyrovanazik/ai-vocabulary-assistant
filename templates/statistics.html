@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="grid grid-2">
+  <div class="card stat-card">
+    <div class="stat-title">Total Words</div>
+    <div class="stat-value">{{ stats.total_words }}</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-title">Total Reviews</div>
+    <div class="stat-value">{{ stats.total_reviews }}</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-title">Correct Reviews</div>
+    <div class="stat-value">{{ stats.correct_reviews }}</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-title">Accuracy</div>
+    <div class="stat-value">{{ stats.accuracy }}</div>
+  </div>
+</div>
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Words by difficulty</h3>
+    <div class="chart-list">
+      {% for item in stats.words_by_difficulty %}
+      <div class="chart-row">
+        <span>{{ item.difficulty or 'Unknown' }}</span>
+        <span>{{ item.count }}</span>
+      </div>
+      {% else %}
+      <p class="empty-state">No difficulty data yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="card">
+    <h3>Words by source</h3>
+    <div class="chart-list">
+      {% for item in stats.words_by_source %}
+      <div class="chart-row">
+        <span>{{ item.source_name or 'Unknown' }}</span>
+        <span>{{ item.count }}</span>
+      </div>
+      {% else %}
+      <p class="empty-state">No source data yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Newest words</h3>
+    <ul class="list-clean">
+      {% for item in stats.newest_words %}
+      <li>{{ item.word }} • {{ item.created_at }}</li>
+      {% else %}
+      <li class="empty-state">No words found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Oldest words</h3>
+    <ul class="list-clean">
+      {% for item in stats.oldest_words %}
+      <li>{{ item.word }} • {{ item.created_at }}</li>
+      {% else %}
+      <li class="empty-state">No words found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

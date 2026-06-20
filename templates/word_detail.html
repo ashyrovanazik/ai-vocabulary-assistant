@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card detail-card">
+  {% if word %}
+  <div class="detail-header">
+    <div>
+      <h2>{{ word.word }}</h2>
+      <p class="muted">{{ word.part_of_speech or 'Part of speech not specified' }}</p>
+    </div>
+    <div class="detail-actions">
+      <a href="{{ url_for('edit_vocabulary', word_id=word.id) }}" class="secondary-button">Edit</a>
+      <form method="post" action="{{ url_for('delete_vocabulary', word_id=word.id) }}" onsubmit="return confirm('Delete this vocabulary item?');" class="inline-form">
+        <button type="submit" class="danger-button">Delete</button>
+      </form>
+    </div>
+  </div>
+  <span class="badge">Difficulty: {{ word.difficulty or 'N/A' }}</span>
+  <div class="detail-grid">
+    <div><strong>Phonetic</strong><p>{{ word.phonetic or '—' }}</p></div>
+    <div><strong>Chinese Meaning</strong><p>{{ word.chinese_meaning or '—' }}</p></div>
+    <div><strong>Definition</strong><p>{{ word.definition or '—' }}</p></div>
+    <div><strong>Collocations</strong><p>{{ word.collocations or '—' }}</p></div>
+    <div><strong>Synonyms</strong><p>{{ word.synonyms or '—' }}</p></div>
+    <div><strong>Antonyms</strong><p>{{ word.antonyms or '—' }}</p></div>
+    <div><strong>Example Sentence</strong><p>{{ word.example_sentence or '—' }}</p></div>
+    <div><strong>Chinese Translation</strong><p>{{ word.chinese_translation or '—' }}</p></div>
+    <div><strong>Source</strong><p>{{ word.source_name or 'Unknown' }}<br>{% if word.source_url %}<a href="{{ word.source_url }}" target="_blank">{{ word.source_url }}</a>{% else %}No URL{% endif %}</p></div>
+    <div><strong>AI Explanation</strong><p>{{ word.ai_explanation or '—' }}</p></div>
+    <div><strong>Created Date</strong><p>{{ word.created_at or '—' }}</p></div>
+    <div><strong>Updated Date</strong><p>{{ word.updated_at or '—' }}</p></div>
+  </div>
+  {% else %}
+  <p class="empty-state">Word not found or access is restricted.</p>
+  {% endif %}
+</div>
+{% endblock %}

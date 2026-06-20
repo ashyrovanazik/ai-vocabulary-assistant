@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card quiz-card">
+    <h3>Quiz Mode</h3>
+
+    {% if error %}
+        <p class="empty-state">{{ error }}</p>
+    {% else %}
+
+        <div class="quiz-question">
+            <p>Which word matches this meaning?</p>
+            <h4>{{ meaning }}</h4>
+
+            {% if pinyin %}
+                <p class="muted">{{ pinyin }}</p>
+            {% endif %}
+        </div>
+
+        <form method="POST">
+            <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
+            <input type="hidden" name="meaning" value="{{ meaning }}">
+            <input type="hidden" name="pinyin" value="{{ pinyin }}">
+
+            {% for option in options %}
+                <input type="hidden" name="options" value="{{ option }}">
+                <button type="submit" name="answer" value="{{ option }}" class="option-button">
+                    {{ option }}
+                </button>
+            {% endfor %}
+        </form>
+
+        {% if result == "correct" %}
+            <div class="result-card correct-answer">Correct! 🎉</div>
+            <a href="{{ url_for('quiz') }}" class="primary-button" style="margin-top: 18px; display: inline-flex;">
+                Next Question
+            </a>
+        {% elif result == "wrong" %}
+            <div class="result-card wrong-answer">
+                Wrong. Correct answer: {{ correct_answer }}
+            </div>
+            <a href="{{ url_for('quiz') }}" class="primary-button" style="margin-top: 18px; display: inline-flex;">
+                Next Question
+            </a>
+        {% endif %}
+
+    {% endif %}
+</div>
+
+{% endblock %}

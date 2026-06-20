@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card review-card">
+    <h3>Review Session</h3>
+
+    {% if word %}
+
+    <div class="review-word-card">
+
+        <div class="word-title">
+            {{ word.word }}
+        </div>
+
+        <div class="word-subtitle">
+            Meaning: {{ word.chinese_meaning }}
+        </div>
+
+        {% if word.pinyin %}
+        <p style="color:#6b7280; margin-top:8px;">
+            {{ word.pinyin }}
+        </p>
+        {% endif %}
+
+        <p class="review-tip">
+            Tap the buttons to record your recall confidence.
+        </p>
+
+        <form method="POST">
+
+            <input type="hidden" name="word_id" value="{{ word.id }}">
+
+            <div class="review-actions">
+
+                <button type="submit"
+                        name="result"
+                        value="remembered"
+                        class="primary-button">
+                    I Remembered
+                </button>
+
+                <button type="submit"
+                        name="result"
+                        value="forgot"
+                        class="danger-button">
+                    I Forgot
+                </button>
+
+            </div>
+
+        </form>
+
+        {% if message %}
+            <div style="margin-top:20px;font-weight:bold;">
+                {{ message }}
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-card">
+        <h3>No words available for review.</h3>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

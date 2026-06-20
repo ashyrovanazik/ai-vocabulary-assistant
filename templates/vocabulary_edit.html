@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card form-card">
+  <h3>Edit Vocabulary</h3>
+  <form method="post" class="vocab-form">
+    <div class="form-grid">
+      <label>
+        Word
+        <input type="text" name="word" value="{{ form.word or '' }}" required />
+      </label>
+      <label>
+        Phonetic
+        <input type="text" name="phonetic" value="{{ form.phonetic or '' }}" />
+      </label>
+      <label>
+        Part of speech
+        <select name="part_of_speech" required>
+          <option value="">Select one</option>
+          <option value="noun" {% if form.part_of_speech == 'noun' %}selected{% endif %}>noun</option>
+          <option value="verb" {% if form.part_of_speech == 'verb' %}selected{% endif %}>verb</option>
+          <option value="adjective" {% if form.part_of_speech == 'adjective' %}selected{% endif %}>adjective</option>
+          <option value="adverb" {% if form.part_of_speech == 'adverb' %}selected{% endif %}>adverb</option>
+        </select>
+      </label>
+      <label>
+        Difficulty
+        <select name="difficulty" required>
+          <option value="">Select difficulty</option>
+          <option value="Beginner" {% if form.difficulty == 'Beginner' %}selected{% endif %}>Beginner</option>
+          <option value="Intermediate" {% if form.difficulty == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+          <option value="Advanced" {% if form.difficulty == 'Advanced' %}selected{% endif %}>Advanced</option>
+        </select>
+      </label>
+      <label>
+        Source name
+        <input type="text" name="source_name" value="{{ form.source_name or '' }}" />
+      </label>
+      <label>
+        Source URL
+        <input type="url" name="source_url" value="{{ form.source_url or '' }}" />
+      </label>
+    </div>
+
+    <label>
+      Chinese meaning
+      <textarea name="chinese_meaning">{{ form.chinese_meaning or '' }}</textarea>
+    </label>
+    <label>
+      Definition
+      <textarea name="definition" required>{{ form.definition or '' }}</textarea>
+    </label>
+    <label>
+      Collocations
+      <textarea name="collocations">{{ form.collocations or '' }}</textarea>
+    </label>
+    <label>
+      Synonyms
+      <textarea name="synonyms">{{ form.synonyms or '' }}</textarea>
+    </label>
+    <label>
+      Antonyms
+      <textarea name="antonyms">{{ form.antonyms or '' }}</textarea>
+    </label>
+    <label>
+      Example sentence
+      <textarea name="example_sentence">{{ form.example_sentence or '' }}</textarea>
+    </label>
+    <label>
+      Chinese translation
+      <textarea name="chinese_translation">{{ form.chinese_translation or '' }}</textarea>
+    </label>
+    <label>
+      AI explanation
+      <textarea name="ai_explanation">{{ form.ai_explanation or '' }}</textarea>
+    </label>
+
+    <div class="form-actions">
+      <button class="primary-button" type="submit">Update Vocabulary</button>
+      <a href="{{ url_for('word_detail', word_id=word_id) }}" class="secondary-button">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

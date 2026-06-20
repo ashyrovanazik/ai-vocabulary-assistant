@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card hero-card animate-card">
+  <div class="hero-content">
+    <div>
+      <span class="badge">AI Powered Learning</span>
+      <h1>AI Vocabulary Assistant</h1>
+      <p class="hero-text">
+        Learn English vocabulary through AI agents, real examples,
+        Chinese translations, OpenClaw workflows and smart review sessions.
+      </p>
+
+
+  <div class="hero-actions">
+    <a href="{{ url_for('add_vocabulary') }}" class="primary-button">
+      Add New Word
+    </a>
+
+    <a href="{{ url_for('quiz') }}" class="secondary-button">
+      Start Quiz
+    </a>
+  </div>
+</div>
+
+<div class="hero-status">
+  <div class="status-card">
+    <span>Search Agent</span>
+    <strong>Active</strong>
+  </div>
+
+  <div class="status-card">
+    <span>OpenClaw</span>
+    <strong>{{ stats.telegram_status }}</strong>
+  </div>
+
+  <div class="status-card">
+    <span>Daily Word</span>
+    <strong>{{ stats.daily_word }}</strong>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="grid grid-2">
+
+  <div class="card stat-card animate-card">
+    <div class="stat-title">Vocabulary Collection</div>
+    <div class="stat-value">{{ stats.total_words }}</div>
+    <div class="stat-note">Words stored in your AI vocabulary database</div>
+  </div>
+
+  <div class="card stat-card animate-card">
+    <div class="stat-title">Quiz Accuracy</div>
+    <div class="stat-value">{{ stats.quiz_accuracy }}</div>
+    <div class="stat-note">Performance across learning sessions</div>
+  </div>
+
+  <div class="card stat-card animate-card">
+    <div class="stat-title">Learning Streak</div>
+    <div class="stat-value">{{ stats.learning_streak }} days</div>
+    <div class="stat-note">Keep your streak alive</div>
+  </div>
+
+  <div class="card stat-card animate-card">
+    <div class="stat-title">Words This Week</div>
+    <div class="stat-value">{{ stats.words_this_week }}</div>
+    <div class="stat-note">Recently learned vocabulary</div>
+  </div>
+
+</div>
+
+<div class="grid grid-2">
+
+  <div class="card">
+    <h3>Recent Agent Activities</h3>
+
+
+{% if stats.recent_agent %}
+<table class="table-list">
+  <thead>
+  <tr>
+    <th>Command</th>
+    <th>Status</th>
+    <th>Date</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  {% for activity in stats.recent_agent %}
+  <tr>
+    <td>{{ activity.command or '—' }}</td>
+    <td>{{ activity.status or 'Pending' }}</td>
+    <td>{{ activity.created_at }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+
+</table>
+
+{% else %}
+<p class="empty-state">No agent activity recorded yet.</p>
+{% endif %}
+```
+
+  </div>
+
+  <div class="card">
+    <h3>Latest Vocabulary</h3>
+
+
+{% if stats.latest_words %}
+<ul class="list-clean">
+  {% for item in stats.latest_words %}
+  <li>
+    <strong>{{ item.word }}</strong>
+    <span class="muted">{{ item.created_at }}</span>
+  </li>
+  {% endfor %}
+</ul>
+
+{% else %}
+<p class="empty-state">No recent vocabulary yet.</p>
+{% endif %}
+
+
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="vocab-topbar">
+  <div>
+    <span class="badge">My Vocabulary</span>
+    <h2>Your AI Word Collection</h2>
+    <p class="muted">
+      Saved words with meanings, examples, translations and source information.
+    </p>
+  </div>
+
+  <div class="vocab-controls">
+    <button type="button" id="open-add-vocab" class="primary-button">
+      + Add Vocabulary
+    </button>
+
+
+<a href="{{ url_for('add_vocabulary') }}" class="secondary-button">
+  Open Add Page
+</a>
+
+
+  </div>
+</div>
+
+<div class="card vocab-search-card">
+  <form method="get" class="search-form">
+    <input
+      type="search"
+      name="search"
+      placeholder="Search by word, meaning, example, or source"
+      value="{{ search or '' }}"
+    />
+    <button type="submit" class="primary-button">Search</button>
+  </form>
+
+  <form method="get" class="filter-form">
+    <input type="hidden" name="search" value="{{ search or '' }}" />
+
+
+<label>
+  Difficulty
+  <select name="difficulty">
+    <option value="">All</option>
+    <option value="Beginner" {% if difficulty == 'Beginner' %}selected{% endif %}>Beginner</option>
+    <option value="Intermediate" {% if difficulty == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+    <option value="Advanced" {% if difficulty == 'Advanced' %}selected{% endif %}>Advanced</option>
+  </select>
+</label>
+
+<label>
+  Part of speech
+  <select name="part_of_speech">
+    <option value="">All</option>
+    <option value="noun" {% if part_of_speech == 'noun' %}selected{% endif %}>noun</option>
+    <option value="verb" {% if part_of_speech == 'verb' %}selected{% endif %}>verb</option>
+    <option value="adjective" {% if part_of_speech == 'adjective' %}selected{% endif %}>adjective</option>
+    <option value="adverb" {% if part_of_speech == 'adverb' %}selected{% endif %}>adverb</option>
+  </select>
+</label>
+
+<label>
+  Source
+  <select name="source">
+    <option value="">All</option>
+    <option value="Reuters" {% if source_filter == 'Reuters' %}selected{% endif %}>Reuters</option>
+    <option value="BBC" {% if source_filter == 'BBC' %}selected{% endif %}>BBC</option>
+    <option value="Guardian" {% if source_filter == 'Guardian' %}selected{% endif %}>Guardian</option>
+    <option value="NPR" {% if source_filter == 'NPR' %}selected{% endif %}>NPR</option>
+    <option value="Other" {% if source_filter == 'Other' %}selected{% endif %}>Other</option>
+  </select>
+</label>
+
+<button type="submit" class="secondary-button">Filter</button>
+```
+
+  </form>
+</div>
+
+{% if words %}
+
+<div class="grid grid-2 vocab-grid">
+  {% for word in words %}
+  <div class="card vocab-card premium-word-card">
+
+
+<div class="word-header">
+  <div>
+    <span class="word-text">{{ word.word }}</span>
+
+    {% if word.phonetic %}
+    <p class="word-phonetic">{{ word.phonetic }}</p>
+    {% endif %}
+  </div>
+
+  <span class="word-chip">
+    {{ word.part_of_speech or 'Unknown' }}
+  </span>
+</div>
+
+<div class="meaning-block">
+  <span class="section-label">Chinese Meaning</span>
+  <p class="word-meaning">
+    {{ word.chinese_meaning or word.definition or 'No meaning provided yet.' }}
+  </p>
+</div>
+
+{% if word.example_sentence %}
+<div class="example-box">
+  <strong>Example Sentence</strong>
+  <p>{{ word.example_sentence }}</p>
+</div>
+{% endif %}
+
+{% if word.chinese_translation %}
+<div class="translation-box">
+  <strong>Chinese Translation</strong>
+  <p>{{ word.chinese_translation }}</p>
+</div>
+{% endif %}
+
+<div class="meta-row premium-meta">
+  <span class="tag">{{ word.difficulty or 'General' }}</span>
+  <span class="tag">{{ word.source_name or 'Tutor Agent' }}</span>
+</div>
+
+{% if word.source_url %}
+<a href="{{ word.source_url }}" target="_blank" class="source-link">
+  View Original Source →
+</a>
+{% endif %}
+
+<div class="word-meta">
+  Added {{ word.created_at }}
+</div>
+
+<div class="card-actions">
+  <a href="{{ url_for('word_detail', word_id=word.id) }}" class="secondary-button">
+    View
+  </a>
+
+  <a href="{{ url_for('edit_vocabulary', word_id=word.id) }}" class="secondary-button">
+    Edit
+  </a>
+
+  <form
+    method="post"
+    action="{{ url_for('delete_vocabulary', word_id=word.id) }}"
+    class="inline-form"
+    onsubmit="return confirm('Delete this vocabulary item?');"
+  >
+    <button type="submit" class="danger-button">
+      Delete
+    </button>
+  </form>
+</div>
+
+
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+
+<div class="card empty-card">
+  <h3>No vocabulary found.</h3>
+  <p class="muted">
+    Start building your AI vocabulary collection with real examples and translations.
+  </p>
+  <a href="{{ url_for('add_vocabulary') }}" class="primary-button">
+    Add Vocabulary
+  </a>
+</div>
+{% endif %}
+
+{% include 'vocabulary_add_modal.html' %}
+
+{% endblock %}
