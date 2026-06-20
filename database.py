@@ -1,9 +1,10 @@
+import os
 import pymysql
 from pymysql.cursors import DictCursor
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 
 
-MYSQL_PORT = int(os.getenv('MYSQL_PORT', 3306))
+MYSQL_PORT = int(os.getenv('MYSQL_PORT') or os.getenv('MYSQLPORT') or 3306)
 
 def create_connection(with_database=False):
     """Create a MySQL connection. Use without database to initialize schema."""
