@@ -3,6 +3,8 @@ from pymysql.cursors import DictCursor
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 
 
+MYSQL_PORT = int(os.getenv('MYSQL_PORT', 3306))
+
 def create_connection(with_database=False):
     """Create a MySQL connection. Use without database to initialize schema."""
     connection_args = {
@@ -11,6 +13,7 @@ def create_connection(with_database=False):
         'password': MYSQL_PASSWORD,
         'charset': 'utf8mb4',
         'cursorclass': DictCursor,
+        'port': MYSQL_PORT
     }
     if with_database:
         connection_args['db'] = MYSQL_DATABASE
