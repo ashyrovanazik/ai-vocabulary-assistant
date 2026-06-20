@@ -404,23 +404,22 @@ def search_agent():
 @login_required
 def run_search_agent():
     command = request.form.get('command') or (request.json and request.json.get('command'))
+
     if not command:
-        return jsonify({'success': False, 'error': 'Empty command'}), 400
+        return jsonify({
+            'success': False,
+            'error': 'Empty command'
+        }), 400
 
     try:
-    result = run_example_search_agent(session['user_id'], command)
-
-    print("AGENT RESULT:", result)
-
-    return jsonify(result)
-
-except Exception as e:
-    print("AGENT ERROR:", str(e))
-
-    return jsonify({
-        'success': False,
-        'error': str(e)
-    }), 500
+        result = run_example_search_agent(session['user_id'], command)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': 'Agent runtime error',
+            'details': str(e)
+        }), 500
 @app.route('/telegram-agent/run', methods=['POST'])
 def telegram_agent_run():
     data = request.get_json() or {}
